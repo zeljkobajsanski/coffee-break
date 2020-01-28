@@ -2,7 +2,7 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <img src="img/coffee_cup.png" />
+        <img src="img/coffee_cup.png" slot="start" />
         <ion-title>Coffee Break</ion-title>
       </ion-toolbar>
     </ion-header>
