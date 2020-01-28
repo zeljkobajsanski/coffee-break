@@ -16,7 +16,7 @@ export default new Vuex.Store({
   mutations: {
     setAuthenticated(state, authenticatedUser) {
       state.authenticatedUser = authenticatedUser;
-      state.isAuthenticated = authenticatedUser ? true : false;
+      state.isAuthenticated = !!authenticatedUser;
     },
     SOCKET_USERS(state, users) {
       state.users = users;
@@ -35,7 +35,7 @@ export default new Vuex.Store({
         auth: {
           clientId: process.env.VUE_APP_CLIENT_ID, //This is your client ID
           authority: `https://login.microsoftonline.com/${process.env.VUE_APP_TENANT_ID}`, //This is your tenant info
-          redirectUri: "http://localhost:8080/" //This is your redirect URI
+          redirectUri: process.env.VUE_APP_REDIRECT_URI //This is your redirect URI
         },
         cache: {
           cacheLocation: "localStorage",
@@ -47,9 +47,9 @@ export default new Vuex.Store({
         const request = { scopes: ["user.read"] };
         await authClient.loginPopup(request);
         const tokenResponse = await authClient.acquireTokenSilent(request);
-        const { data } = await axios.post(
-          `api/authentication/login/${tokenResponse.accessToken}`
-        );
+        const { data } = await axios.post(`api/authentication/login/`, {
+          accessToken: tokenResponse.accessToken
+        });
         axios.defaults.headers = {
           Authorization: `Bearer ${data.accessToken}`
         };

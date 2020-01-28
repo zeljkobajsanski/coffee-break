@@ -1,4 +1,4 @@
-import {Controller, Param, Post} from '@nestjs/common';
+import {Body, Controller, Param, Post} from '@nestjs/common';
 import axios from 'axios'
 import { JwtService } from '@nestjs/jwt';
 import {blobToBase64 } from 'base64-blob';
@@ -13,10 +13,10 @@ export class AuthenticationController {
                 @InjectRepository(User) private readonly usersRepository: Repository<User>) {
     }
 
-    @Post('login/:token')
-    async login(@Param('token') accessToken: string) {
+    @Post('login')
+    async login(@Body() tokenInfo: any) {
         const me = `https://graph.microsoft.com/v1.0/me`;
-        const header = {headers: {'Authorization': `Bearer ${accessToken}`}};
+        const header = {headers: {Authorization: `Bearer ${tokenInfo.accessToken}`}};
         const { data: userInfo } = await axios.get(me, header);
         const { data: photo } = await axios.get(`${me}/photo/$value`, {...header, responseType: 'arraybuffer'});
         const photoBase64 = Buffer.from(photo).toString('base64');

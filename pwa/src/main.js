@@ -13,7 +13,7 @@ Vue.use(Ionic);
 Vue.use(
   new VueSocketIO({
     debug: true,
-    connection: "http://localhost:3001",
+    connection: process.env.VUE_APP_SOCKET_URI,
     vuex: {
       store,
       actionPrefix: "SOCKET_",

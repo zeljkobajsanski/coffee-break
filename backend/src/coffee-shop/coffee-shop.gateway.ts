@@ -1,8 +1,8 @@
 import {OnGatewayConnection, WebSocketGateway, WebSocketServer} from "@nestjs/websockets";
-import {Server} from "socket.io";
-import {User} from "../authentication/user.entity";
+import {Server} from 'socket.io';
+import {User} from '../authentication/user.entity';
 
-@WebSocketGateway(3001)
+@WebSocketGateway()
 export class CoffeeShopGateway implements OnGatewayConnection {
     @WebSocketServer() server: Server;
 
