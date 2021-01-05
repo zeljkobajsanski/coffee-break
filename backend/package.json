@@ -29,7 +29,7 @@
     "@nestjs/serve-static": "^1.0.2",
     "@nestjs/typeorm": "^6.2.0",
     "@nestjs/websockets": "^6.10.14",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base64-blob": "^1.4.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
